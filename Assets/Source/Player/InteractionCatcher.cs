@@ -6,6 +6,7 @@ public class InteractionCatcher : MonoBehaviour
 {
     [SerializeField] private float _raycastDistance;
     [SerializeField] private int _layer;
+    [SerializeField] private Inventory _inventory;
     
     private MeshRenderer _meshRenderer;
     private RaycastHit _ray;
@@ -24,9 +25,8 @@ public class InteractionCatcher : MonoBehaviour
     {
         if (BoxcastForward())
         {
-            if (_ray.collider.TryGetComponent(out ICollectable collectable)) ;
-            //Destroy(collectable.GetTransform().gameObject);
-
+            if (_ray.collider.TryGetComponent(out ICollectable collectable))
+                _inventory.Collect((Resource)collectable);
         }
     }
 

@@ -6,6 +6,8 @@ public class Resource : MonoBehaviour, ICollectable
     [SerializeField] private int _cost;
     [SerializeField] private ResourceType _type;
 
+    public ResourceType Type => _type;
+    
     public Transform GetTransform() => transform;
 
     public void OnCollect(){}
