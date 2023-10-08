@@ -121,3 +121,4 @@ MonoBehaviour:
   _resourcesPrefab: {fileID: 1293544022770047573, guid: 241423fcbff3c7f47949abb111b2de7d, type: 3}
   _resourcesCount: 5
   _durability: 1
+  _energyEffect: 11

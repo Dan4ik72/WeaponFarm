@@ -7,15 +7,12 @@ public class ResourcesDeposite : MonoBehaviour, IBrockable
     [SerializeField] private int _resourcesCount;
     [Space]
     [SerializeField] private int _durability;
+
+    [SerializeField] private int _energyEffect;
     
     private int _currentDurability;
 
     public void Init() => _currentDurability = _durability;
-
-    private void Awake()
-    {
-        //OnDie();
-    }
     
     public void ApplyDamage(int damage)
     {
@@ -27,6 +24,8 @@ public class ResourcesDeposite : MonoBehaviour, IBrockable
         if(_currentDurability == 0)
             OnDie();
     }
+
+    public int GetEnergyEffect() => _energyEffect;
 
     private void OnDie()
     {
@@ -43,5 +42,4 @@ public class ResourcesDeposite : MonoBehaviour, IBrockable
     }
 
     public int GetCurrentDurability() => _currentDurability;
-
 }

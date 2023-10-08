@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pickaxe : MonoBehaviour
@@ -11,6 +12,8 @@ public class Pickaxe : MonoBehaviour
     
     [SerializeField] private Transform _overlapPoint;
 
+    [SerializeField] private PlayerEnergy _playerEnergy;
+    
     [SerializeField] private int _layer;
     
     private void Update()
@@ -25,10 +28,15 @@ public class Pickaxe : MonoBehaviour
     {
         var brockables = Physics.OverlapSphere(_overlapPoint.position, _useRadius, 1 << _layer).
             ToList().Select(collider => collider.GetComponent<IBrockable>()).ToList();
-
-        Debug.Log(brockables.Count);
         
-        foreach (var brockable in brockables) 
-            brockable.ApplyDamage(_damage);
+        if(brockables == null || brockables.Count == 0)
+            return;
+        
+        var first = brockables.First();
+        
+        if(_playerEnergy.TrySpendEnergy(first.GetEnergyEffect()) == false)
+            return;
+
+        first.ApplyDamage(_damage);
     }
 }

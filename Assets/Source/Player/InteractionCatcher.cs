@@ -26,7 +26,17 @@ public class InteractionCatcher : MonoBehaviour
         if (BoxcastForward())
         {
             if (_ray.collider.TryGetComponent(out ICollectable collectable))
+            {
                 _inventory.Collect((Resource)collectable);
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (_ray.collider.TryGetComponent(out Locker locked))
+                {
+                    locked.TryUnlock(_inventory);
+                }    
+            }
         }
     }
 
