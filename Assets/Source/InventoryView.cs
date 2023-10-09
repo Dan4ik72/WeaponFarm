@@ -8,6 +8,7 @@ using UnityEngine;
 public class InventoryView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
+    [SerializeField] private TMP_Text _inventory;
 
     private void Awake()
     {
@@ -20,5 +21,10 @@ public class InventoryView : MonoBehaviour
         _text.text = text;
         await Task.Delay(TimeSpan.FromSeconds(3));
         _text.gameObject.SetActive(false);
+    }
+
+    public void UpdateInventory(List<string> resources)
+    {
+        
     }
 }

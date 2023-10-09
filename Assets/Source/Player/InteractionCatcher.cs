@@ -74,6 +74,12 @@ public class InteractionCatcher : MonoBehaviour
                 InteractionEntered?.Invoke(weaponTraider);
                 _currentInteraction = weaponTraider;
             }
+
+            if (_hit.collider.TryGetComponent(out SeedHolder seedHolder))
+            {
+                InteractionEntered?.Invoke(seedHolder);
+                _currentInteraction = seedHolder;
+            }
             
             if (Input.GetMouseButtonDown(0) && _currentInteraction != null)
             {
@@ -111,6 +117,16 @@ public class InteractionCatcher : MonoBehaviour
                             Destroy(weapon.gameObject);
                             break;
                     }
+                    
+                    return;
+                }
+
+                if (_currentInteraction is SeedHolder sh)
+                {
+                    if (_playerEnergy.TrySpendEnergy(sh.EnergyRequired) == false)
+                        return;
+                    
+                    sh.Interact(_inventory);
                     
                     return;
                 }
