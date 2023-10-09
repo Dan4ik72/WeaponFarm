@@ -39,5 +39,6 @@ public class CameraFollower : MonoBehaviour
         Vector3 rotatedVector3 = new Vector3(rotatedVector.x, rotatedVector.y, rotatedVector.z) * _height;
         Vector3 newPosition = _playerTansform.position + rotatedVector3;
         transform.position = newPosition;
+        transform.rotation = Quaternion.LookRotation(-rotatedVector3);
     }
 }

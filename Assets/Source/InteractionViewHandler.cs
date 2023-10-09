@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractionViewHandler : MonoBehaviour
 {
     [SerializeField] private TMP_Text _interactionText;
+    [SerializeField] private GameObject _interactionObject;
     
     [SerializeField] private InteractionCatcher _interactionCatcher;
 
@@ -22,14 +23,14 @@ public class InteractionViewHandler : MonoBehaviour
     {
         _current = interaction;
         _interactionText.text = interaction.InteractionDescription;
-        _interactionText.gameObject.SetActive(true);
+        _interactionObject.SetActive(true);
     }
 
     private void ShowInteractionWithRequirements(IInteractionWithRequirements interaction)
     {
         _current = interaction;
         _interactionText.text = interaction.InteractionDescription;
-        _interactionText.gameObject.SetActive(true);
+        _interactionObject.SetActive(true);
     }
 
     private void OnInteractionEnded(IInteraction interaction)
@@ -37,7 +38,7 @@ public class InteractionViewHandler : MonoBehaviour
         if(interaction != _current)
             return;
 
-        _interactionText.gameObject.SetActive(false);
+        _interactionObject.SetActive(false);
     }
 }
 

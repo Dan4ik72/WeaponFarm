@@ -12,15 +12,15 @@ public class InventoryView : MonoBehaviour
 
     private void Awake()
     {
-        _text.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
     
     public async Task ShowText(string text)
     {
-        _text.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         _text.text = text;
         await Task.Delay(TimeSpan.FromSeconds(3));
-        _text.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void UpdateInventory(List<string> resources)
