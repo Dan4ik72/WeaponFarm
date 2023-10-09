@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8638442755985690164}
   - component: {fileID: 337043896396100406}
   - component: {fileID: 3328484069109349948}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: GoldDeposite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

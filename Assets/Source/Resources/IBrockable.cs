@@ -1,4 +1,4 @@
-﻿public interface IBrockable
+﻿public interface IBrockable : IInteraction
 {
     public void ApplyDamage(int damage);
 

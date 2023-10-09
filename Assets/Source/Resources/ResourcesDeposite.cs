@@ -42,4 +42,8 @@ public class ResourcesDeposite : MonoBehaviour, IBrockable
     }
 
     public int GetCurrentDurability() => _currentDurability;
+    public string InteractionDescription => _energyEffect + " cost";
+    public void Interact(Inventory inventory)
+    {
+    }
 }

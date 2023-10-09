@@ -8,6 +8,7 @@ public class InteractionCatcher : MonoBehaviour
     [SerializeField] private int _layer;
     [SerializeField] private Inventory _inventory;
     [SerializeField] private PlayerEnergy _playerEnergy;
+    [SerializeField] private Pickaxe _pickaxe;
     
     private MeshRenderer _meshRenderer;
     private RaycastHit _ray;
@@ -51,10 +52,14 @@ public class InteractionCatcher : MonoBehaviour
 
             if (_ray.collider.TryGetComponent(out EnergyGenerator e))
             {
-                Debug.Log("energy generator");
-                
                 InteractionEntered?.Invoke(e);
                 _currentInteraction = e;
+            }
+
+            if (_ray.collider.TryGetComponent(out IBrockable brockable))
+            {
+                InteractionEntered?.Invoke(brockable);
+                _currentInteraction = brockable;
             }
             
             if (Input.GetMouseButtonDown(0) && _currentInteraction != null)
@@ -66,7 +71,15 @@ public class InteractionCatcher : MonoBehaviour
                     _playerEnergy.ReceiveEnergy(generator.ReceiveEnergy());
                     return;
                 }
+
+                if (_currentInteraction is IBrockable brock)
+                {
+                    if(_playerEnergy.TrySpendEnergy(brock.GetEnergyEffect()) == false)
+                        return;
                     
+                    brock.ApplyDamage(_pickaxe.Damage);
+                }
+                
                 _currentInteraction.Interact(_inventory);
             }
             
