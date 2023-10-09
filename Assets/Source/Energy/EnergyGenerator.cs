@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnergyGenerator : MonoBehaviour
+public class EnergyGenerator : MonoBehaviour, IInteraction
 {
     [SerializeField] private int _maxEnergy;
     [SerializeField] private float _timeStepsToFillEnergy;
@@ -37,5 +37,12 @@ public class EnergyGenerator : MonoBehaviour
             if (_currentEnergy > _maxEnergy)
                 _currentEnergy = _maxEnergy;
         }
+    }
+
+    public string InteractionDescription => "Get Energy " + _currentEnergy;
+
+    public void Interact(Inventory inventory)
+    {
+        throw new NotImplementedException();
     }
 }

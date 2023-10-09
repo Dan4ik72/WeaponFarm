@@ -7,10 +7,17 @@ public class InteractionCatcher : MonoBehaviour
     [SerializeField] private float _raycastDistance;
     [SerializeField] private int _layer;
     [SerializeField] private Inventory _inventory;
+    [SerializeField] private PlayerEnergy _playerEnergy;
     
     private MeshRenderer _meshRenderer;
     private RaycastHit _ray;
+    
+    public event Action<IInteraction> InteractionEntered;
+    public event Action<IInteractionWithRequirements> InteractionWithRequirementsEntered;
+    public event Action<IInteraction> InteractionExited;
 
+    private IInteraction _currentInteraction;
+    
     private void Awake()
     {
         _meshRenderer = GetComponent<MeshRenderer>();
@@ -29,15 +36,44 @@ public class InteractionCatcher : MonoBehaviour
             {
                 _inventory.Collect((Resource)collectable);
             }
-
-            if (Input.GetMouseButtonDown(0))
+            
+            if (_ray.collider.TryGetComponent(out Locker l))
             {
-                if (_ray.collider.TryGetComponent(out Locker locked))
-                {
-                    locked.TryUnlock(_inventory);
-                }    
+                InteractionWithRequirementsEntered?.Invoke(l);
+                _currentInteraction = l;
             }
+            
+            if (_ray.collider.TryGetComponent(out Upgrade u))
+            {
+                InteractionWithRequirementsEntered?.Invoke(u);
+                _currentInteraction = u;
+            }
+
+            if (_ray.collider.TryGetComponent(out EnergyGenerator e))
+            {
+                Debug.Log("energy generator");
+                
+                InteractionEntered?.Invoke(e);
+                _currentInteraction = e;
+            }
+            
+            if (Input.GetMouseButtonDown(0) && _currentInteraction != null)
+            {
+                if (_currentInteraction.GetType() == typeof(EnergyGenerator))
+                {
+                    var generator = (EnergyGenerator)_currentInteraction;
+                    
+                    _playerEnergy.ReceiveEnergy(generator.ReceiveEnergy());
+                    return;
+                }
+                    
+                _currentInteraction.Interact(_inventory);
+            }
+            
+            return;
         }
+
+        InteractionExited?.Invoke(_currentInteraction);
     }
 
     private bool BoxcastForward() =>

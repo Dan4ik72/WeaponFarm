@@ -11,12 +11,6 @@ public class PlayerEnergy : MonoBehaviour
     [SerializeField] private int _energy;
 
     public int CurrentEnergy => _energy;
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-            Overlap();
-    }
     
     public bool TrySpendEnergy(int energy)
     {
@@ -27,18 +21,5 @@ public class PlayerEnergy : MonoBehaviour
         return true;
     }
     
-    private void Overlap()
-    {
-        var colliders = Physics.OverlapSphere(_overlapPoint.position, _useRadius, 1 << _layer).
-            ToList().Select(collider => collider.GetComponent<EnergyGenerator>()).ToList();
-        
-        if(colliders.Count == 0)
-            return;
-
-        var generator = colliders.First();
-        
-        ReceiveEnergy(generator.ReceiveEnergy());
-    }
-    
-    private void ReceiveEnergy(int energy) => _energy += energy;
+    public void ReceiveEnergy(int energy) => _energy += energy;
 }

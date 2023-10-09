@@ -15,9 +15,9 @@ public class Inventory : MonoBehaviour
     private void Init()
     {
         _resources.Add(ResourceType.Iron, 4);
-        _resources.Add(ResourceType.Copper, 0);
-        _resources.Add(ResourceType.Silver, 0);
-        _resources.Add(ResourceType.Gold, 0);
+        _resources.Add(ResourceType.Copper, 4);
+        _resources.Add(ResourceType.Silver, 4);
+        _resources.Add(ResourceType.Gold, 4);
     }
     
     public void Collect(Resource resource)
