@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] private InventoryView _inventoryView;
+    
     private SeedType _currentSeed;
     private SeedType _weapon;
     
@@ -18,9 +20,14 @@ public class Inventory : MonoBehaviour
     public void Collect(SeedType seed)
     {
         _currentSeed = seed;
+        _inventoryView.ShowText("You got a " + seed);
     }
 
-    public void CollectWeapon(SeedType weapon) => _weapon = weapon;
+    public void CollectWeapon(SeedType weapon)
+    {
+        _weapon = weapon;
+        _inventoryView.ShowText("You got a " + weapon);
+    }
 
     private void Init()
     {
@@ -29,11 +36,14 @@ public class Inventory : MonoBehaviour
         _resources.Add(ResourceType.Silver, 4);
         _resources.Add(ResourceType.Gold, 4);
         _currentSeed = SeedType.Sword;
+        _inventoryView.ShowText("You got basic resources");
     }
     
     public void Collect(Resource resource)
     {
         _resources[resource.Type] += 1;
+
+        _inventoryView.ShowText("You got a" + resource.Type);
         
         Destroy(resource.gameObject);
     }
@@ -45,8 +55,7 @@ public class Inventory : MonoBehaviour
         if (weapon == SeedType.Null)
             return false;
 
-        Debug.Log("Weapon sold");
-        
+        _inventoryView.ShowText(weapon + " sold");        
         _weapon = SeedType.Null;
         return true;
     }
@@ -58,6 +67,8 @@ public class Inventory : MonoBehaviour
         if (_currentSeed == SeedType.Null)
             return false;
 
+        _inventoryView.ShowText(seed + " spent");
+        
         _currentSeed = SeedType.Null;
         return true;
     }
@@ -68,6 +79,8 @@ public class Inventory : MonoBehaviour
             return false;
 
         _resources[type] -= count;
+
+        _inventoryView.ShowText("You spent " + count + " " + type + "s");
         
         return true;
     }
