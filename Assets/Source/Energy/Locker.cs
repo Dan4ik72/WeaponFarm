@@ -34,7 +34,7 @@ public class Locker : MonoBehaviour, IQuestItem, IInteractionWithRequirements
 
     public void TryUnlock(Inventory playerInventory)
     {
-        if (playerInventory.TryGet(_currency, _price))
+        if (playerInventory.TryGive(_currency, _price))
         {
             _isLocked = false;
             _lockedObject.enabled = true;

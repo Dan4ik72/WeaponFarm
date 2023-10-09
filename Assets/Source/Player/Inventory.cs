@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    private SeedType _currentSeed;
     private Dictionary<ResourceType, int> _resources = new();
 
     private void Awake()
@@ -12,6 +13,11 @@ public class Inventory : MonoBehaviour
         Init();
     }
     
+    public void Collect(SeedType seed)
+    {
+        _currentSeed = seed;
+    }
+
     private void Init()
     {
         _resources.Add(ResourceType.Iron, 4);
@@ -27,7 +33,18 @@ public class Inventory : MonoBehaviour
         Destroy(resource.gameObject);
     }
 
-    public bool TryGet(ResourceType type, int count)
+    public bool TryGive(out SeedType seed)
+    {
+        seed = _currentSeed;
+
+        if (_currentSeed == SeedType.Null)
+            return false;
+
+        _currentSeed = SeedType.Null;
+        return true;
+    }
+
+    public bool TryGive(ResourceType type, int count)
     {
         if (_resources[type] < count)
             return false;

@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class GrowingWeaponHandler : MonoBehaviour
+public class GrowingWeaponHandler : IInteraction
 {
     [SerializeField] private float _growIterationTime;
     [SerializeField] private GrowingWeaponFactory _growingWeaponFactory;
     private WeaponPlant _weaponPlant;
+    private string _description = "Посадите оружие";
     
     public bool IsGrowing { get; private set; }
+
+    public string InteractionDescription => _description;
 
     public event Action Grown;
 
@@ -20,8 +23,19 @@ public class GrowingWeaponHandler : MonoBehaviour
         Plant(SeedType.Sword);
     }
 
+    public void Interact(Inventory inventory)
+    {
+        if (inventory.TryGive(out SeedType seed) == false)
+            return;
+
+        Plant(seed);
+    }
+
     public void Plant(SeedType seed)
     {
+        if (_weaponPlant != null)
+            return;
+
         _weaponPlant = _growingWeaponFactory.Create(seed);
 
         if (_weaponPlant != null)
@@ -30,6 +44,8 @@ public class GrowingWeaponHandler : MonoBehaviour
 
     private async Task GrowAsync()
     {
+        IsGrowing = true;
+        _description = "Оружие растёт";
         _weaponPlant.Init();
 
         for (int i = 0; i < _weaponPlant.IterationsCount; i++)
@@ -40,11 +56,22 @@ public class GrowingWeaponHandler : MonoBehaviour
         }
 
         Grown?.Invoke();
+        _description = "Оружие выросло";
+        IsGrowing = false;
+    }
+
+    public WeaponPlant WeaponGiveAway()
+    {
+        WeaponPlant toGiveAway = _weaponPlant;
+        _weaponPlant = null;
+        toGiveAway.transform.parent = null;
+        return toGiveAway;
     }
 }
 
 public enum SeedType
 {
+    Null,
     Sword
 }
 

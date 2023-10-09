@@ -23,7 +23,7 @@ public class Upgrade : MonoBehaviour, IInteractionWithRequirements
     {
         Debug.Log("tryIterate");
         
-        if(playerInventory.TryGet(_currency, _price) == false)
+        if(playerInventory.TryGive(_currency, _price) == false)
             return;
         
         Debug.Log("HasMoney");
