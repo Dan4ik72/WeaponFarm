@@ -8,7 +8,6 @@ using UnityEngine;
 public class InventoryView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _text;
-    [SerializeField] private TMP_Text _inventory;
 
     private void Awake()
     {
