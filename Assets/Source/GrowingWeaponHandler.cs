@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class GrowingWeaponHandler : IInteraction
+public class GrowingWeaponHandler : MonoBehaviour, IInteraction
 {
     [SerializeField] private float _growIterationTime;
     [SerializeField] private GrowingWeaponFactory _growingWeaponFactory;
