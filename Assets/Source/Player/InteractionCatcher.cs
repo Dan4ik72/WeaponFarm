@@ -9,9 +9,10 @@ public class InteractionCatcher : MonoBehaviour
     [SerializeField] private Inventory _inventory;
     [SerializeField] private PlayerEnergy _playerEnergy;
     [SerializeField] private Pickaxe _pickaxe;
+    [SerializeField] private Transform _raycastStart;
     
     private MeshRenderer _meshRenderer;
-    private RaycastHit _ray;
+    private RaycastHit _hit;
     
     public event Action<IInteraction> InteractionEntered;
     public event Action<IInteractionWithRequirements> InteractionWithRequirementsEntered;
@@ -33,42 +34,42 @@ public class InteractionCatcher : MonoBehaviour
     {
         if (BoxcastForward())
         {
-            if (_ray.collider.TryGetComponent(out ICollectable collectable))
+            if (_hit.collider.TryGetComponent(out ICollectable collectable))
             {
                 _inventory.Collect((Resource)collectable);
             }
             
-            if (_ray.collider.TryGetComponent(out Locker l))
+            if (_hit.collider.TryGetComponent(out Locker l))
             {
                 InteractionWithRequirementsEntered?.Invoke(l);
                 _currentInteraction = l;
             }
             
-            if (_ray.collider.TryGetComponent(out Upgrade u))
+            if (_hit.collider.TryGetComponent(out Upgrade u))
             {
                 InteractionWithRequirementsEntered?.Invoke(u);
                 _currentInteraction = u;
             }
 
-            if (_ray.collider.TryGetComponent(out EnergyGenerator e))
+            if (_hit.collider.TryGetComponent(out EnergyGenerator e))
             {
                 InteractionEntered?.Invoke(e);
                 _currentInteraction = e;
             }
 
-            if (_ray.collider.TryGetComponent(out IBrockable brockable))
+            if (_hit.collider.TryGetComponent(out IBrockable brockable))
             {
                 InteractionEntered?.Invoke(brockable);
                 _currentInteraction = brockable;
             }
 
-            if (_ray.collider.TryGetComponent(out GrowingWeaponHandler gardenBed))
+            if (_hit.collider.TryGetComponent(out GrowingWeaponHandler gardenBed))
             {
                 InteractionEntered?.Invoke(gardenBed);
                 _currentInteraction = gardenBed;
             }
             
-            if(_ray.collider.TryGetComponent(out WeaponTraider weaponTraider))
+            if(_hit.collider.TryGetComponent(out WeaponTraider weaponTraider))
             {
                 InteractionEntered?.Invoke(weaponTraider);
                 _currentInteraction = weaponTraider;
@@ -123,13 +124,25 @@ public class InteractionCatcher : MonoBehaviour
         InteractionExited?.Invoke(_currentInteraction);
     }
 
-    private bool BoxcastForward() =>
-        Physics.BoxCast(_meshRenderer.bounds.center, transform.localScale, transform.forward,
-            out _ray, transform.rotation, _raycastDistance, 1 << _layer);
+    private bool BoxcastForward()
+    {
+        //return Physics.BoxCast(transform.position, transform.localScale, transform.forward,
+        //    out _hit, transform.rotation, _raycastDistance, 1 << _layer);
+        Ray ray = new Ray(_raycastStart.position, transform.forward);
+        return Physics.Raycast(ray, out _hit, _raycastDistance, 1 << _layer);
+    }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawRay(transform.position, transform.forward * _ray.distance);
-        Gizmos.DrawWireCube(transform.position + transform.forward * _ray.distance, transform.localScale);
+        if (BoxcastForward() == true)
+        {
+            Gizmos.DrawRay(_raycastStart.position, transform.forward * _hit.distance);
+            //Gizmos.DrawWireCube(transform.position + transform.forward * _hit.distance, transform.localScale);
+        }
+        else
+        {
+            Gizmos.DrawRay(_raycastStart.position, transform.forward * _raycastDistance);
+            //Gizmos.DrawWireCube(transform.position + transform.forward * _raycastDistance, transform.localScale);
+        }
     }
 }

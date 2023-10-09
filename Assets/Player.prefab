@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2869765650050429194}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.516}
+  m_LocalPosition: {x: 0, y: -0.348, z: 0.314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -183,7 +183,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -333,6 +333,7 @@ MonoBehaviour:
   _inventory: {fileID: 629673863013410545}
   _playerEnergy: {fileID: 361337905956893201}
   _pickaxe: {fileID: 7771067776391670756}
+  _raycastStart: {fileID: 5163592107650351347}
 --- !u!54 &7332354990558620648
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -387,4 +388,4 @@ MonoBehaviour:
   _overlapPoint: {fileID: 5163592107650351347}
   _useRadius: 3
   _layer: 8
-  _energy: 10
+  _energy: 12
