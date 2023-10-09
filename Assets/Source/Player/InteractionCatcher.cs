@@ -61,6 +61,18 @@ public class InteractionCatcher : MonoBehaviour
                 InteractionEntered?.Invoke(brockable);
                 _currentInteraction = brockable;
             }
+
+            if (_ray.collider.TryGetComponent(out GrowingWeaponHandler gardenBed))
+            {
+                InteractionEntered?.Invoke(gardenBed);
+                _currentInteraction = gardenBed;
+            }
+            
+            if(_ray.collider.TryGetComponent(out WeaponTraider weaponTraider))
+            {
+                InteractionEntered?.Invoke(weaponTraider);
+                _currentInteraction = weaponTraider;
+            }
             
             if (Input.GetMouseButtonDown(0) && _currentInteraction != null)
             {
@@ -78,6 +90,28 @@ public class InteractionCatcher : MonoBehaviour
                         return;
                     
                     brock.ApplyDamage(_pickaxe.Damage);
+                    return;
+                }
+
+                if (_currentInteraction is GrowingWeaponHandler bed)
+                {
+                    switch (bed.CurrentState)
+                    {
+                        case GardenBedState.ReadyToPlant:
+                            bed.Interact(_inventory);
+                            break;
+                        
+                        case GardenBedState.Growing:
+                            break;
+                        
+                        case GardenBedState.WeaponGrown:
+                            var weapon = bed.WeaponGiveAway();
+                            _inventory.CollectWeapon(weapon.SeedType);
+                            Destroy(weapon.gameObject);
+                            break;
+                    }
+                    
+                    return;
                 }
                 
                 _currentInteraction.Interact(_inventory);

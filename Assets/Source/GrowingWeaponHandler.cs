@@ -9,7 +9,11 @@ public class GrowingWeaponHandler : MonoBehaviour, IInteraction
     [SerializeField] private float _growIterationTime;
     [SerializeField] private GrowingWeaponFactory _growingWeaponFactory;
     private WeaponPlant _weaponPlant;
-    private string _description = "Посадите оружие";
+    private string _description = "Plant weapon";
+
+    private GardenBedState _currentState = GardenBedState.ReadyToPlant;
+
+    public GardenBedState CurrentState => _currentState;
     
     public bool IsGrowing { get; private set; }
 
@@ -35,17 +39,20 @@ public class GrowingWeaponHandler : MonoBehaviour, IInteraction
     {
         if (_weaponPlant != null)
             return;
-
+        
         _weaponPlant = _growingWeaponFactory.Create(seed);
 
         if (_weaponPlant != null)
+        {
             GrowAsync();
+            _currentState = GardenBedState.Growing;
+        }
     }
 
     private async Task GrowAsync()
     {
         IsGrowing = true;
-        _description = "Оружие растёт";
+        _description = "Weapon is growing";
         _weaponPlant.Init();
 
         for (int i = 0; i < _weaponPlant.IterationsCount; i++)
@@ -56,8 +63,10 @@ public class GrowingWeaponHandler : MonoBehaviour, IInteraction
         }
 
         Grown?.Invoke();
-        _description = "Оружие выросло";
+        
+        _description = "Weapon is ready";
         IsGrowing = false;
+        _currentState = GardenBedState.WeaponGrown;
     }
 
     public WeaponPlant WeaponGiveAway()
@@ -65,8 +74,17 @@ public class GrowingWeaponHandler : MonoBehaviour, IInteraction
         WeaponPlant toGiveAway = _weaponPlant;
         _weaponPlant = null;
         toGiveAway.transform.parent = null;
+        _currentState = GardenBedState.ReadyToPlant;
+        _description = "Plant weapon";
         return toGiveAway;
     }
+}
+
+public enum GardenBedState
+{
+    ReadyToPlant,
+    Growing,
+    WeaponGrown
 }
 
 public enum SeedType

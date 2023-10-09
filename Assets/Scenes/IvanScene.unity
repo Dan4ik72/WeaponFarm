@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -497,7 +497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 861674731}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GrowPoint
   m_TagString: Untagged
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
@@ -713,7 +713,7 @@ GameObject:
   - component: {fileID: 1435733142}
   - component: {fileID: 1435733141}
   - component: {fileID: 1435733140}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GrowingWeaponHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1094,6 +1094,10 @@ PrefabInstance:
     - target: {fileID: 8086904737820188452, guid: 7490639e58583db4a8197c0505f2a4c6, type: 3}
       propertyPath: m_Name
       value: CanvasController
+      objectReference: {fileID: 0}
+    - target: {fileID: 8196398286352060156, guid: 7490639e58583db4a8197c0505f2a4c6, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
