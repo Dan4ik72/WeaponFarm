@@ -28,7 +28,7 @@ public class SeedLaboratory : MonoBehaviour,IInteractionWithRequirements
             return;
         }
 
-        Instantiate(_seedHolders[_index], _potsSpawnPoints[_index]);
+        Instantiate(_seedHolders[_index], _potsSpawnPoints[_index].position, _seedHolders[_index].transform.rotation, _potsSpawnPoints[_index]);
 
         InteractionDescription = "Open new seed";
         

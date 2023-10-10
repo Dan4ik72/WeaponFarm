@@ -33,7 +33,7 @@ public class ResourcesDeposite : MonoBehaviour, IBrockable
         
         for (int i = 0; i < _resourcesCount; i++)
         {
-            var rigidbody = Instantiate(_resourcesPrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            var rigidbody = Instantiate(_resourcesPrefab, transform.position + Vector3.up * 3f, Quaternion.identity).GetComponent<Rigidbody>();
             
             rigidbody.AddForce(Vector3.up, ForceMode.Force);
         }

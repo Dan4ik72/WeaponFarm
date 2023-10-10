@@ -51,7 +51,7 @@ public class SeedHolder : MonoBehaviour, IInteraction
     {
         _isAvailable = false;
         
-        _description = "Wait";
+        _description = "Wait " + _cooldown + " sec";
             
         await Task.Delay(TimeSpan.FromSeconds(_cooldown));
         
