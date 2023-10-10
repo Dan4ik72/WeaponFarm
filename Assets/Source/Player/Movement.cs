@@ -6,11 +6,12 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _speed = 5;
     [SerializeField] private float _rotationSpeed = 5;
     [SerializeField] private SimpleTouchController _joystick;
+    [SerializeField] private Animator _animator;
 
     private Rigidbody _rigidbody;
     private float _mobileSpeed;
 
-    public bool IsMoving => _rigidbody.velocity != Vector3.zero;
+    //public bool IsMoving => _rigidbody.velocity != Vector3.zero;
 
     private void Awake()
     {
@@ -28,16 +29,20 @@ public class Movement : MonoBehaviour
         //_horizontalSpeed = Input.GetAxisRaw("Horizontal") * _speed;
         //_verticalSpeed = Input.GetAxisRaw("Vertical") * _speed;
         MobileInput();
-            DesktopMove();
-            DesktopRotation();
+        DesktopMove();
+        DesktopRotation();
         _rigidbody.velocity = Vector3.zero;
     }
 
     private void MobileInput()
     {
         if (_joystick.IsPressed == false)
+        {
+            _animator.SetBool("IsWalking", false);
             return;
+        }
 
+        _animator.SetBool("IsWalking", true);
         _rigidbody.MovePosition(_rigidbody.position + (Vector3.forward * _joystick.GetTouchPosition.y * Time.fixedDeltaTime * _mobileSpeed) +
             (Vector3.right * _joystick.GetTouchPosition.x * Time.fixedDeltaTime * _mobileSpeed));
 
@@ -60,6 +65,11 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.W) == true)
         {
             _rigidbody.MovePosition(transform.position + (transform.forward * Time.fixedDeltaTime * _speed));
+            _animator.SetBool("IsWalking", true);
+        }
+        else
+        {
+            _animator.SetBool("IsWalking", false);
         }
     }
 
