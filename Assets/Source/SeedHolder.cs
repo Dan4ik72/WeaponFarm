@@ -42,7 +42,7 @@ public class SeedHolder : MonoBehaviour, IInteraction
             return;
         
         inventory.Collect(_seedType);
-        _isFilled = false;
+        _isFilled = true;
         
         Cooldown();
     }
