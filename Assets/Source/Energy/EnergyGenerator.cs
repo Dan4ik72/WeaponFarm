@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnergyGenerator : MonoBehaviour, IInteraction
+public class EnergyGenerator : MonoBehaviour, IInteraction, IQuestItem
 {
     [SerializeField] private int _maxEnergy;
     [SerializeField] private float _timeStepsToFillEnergy;
@@ -23,6 +23,7 @@ public class EnergyGenerator : MonoBehaviour, IInteraction
     {
         var receiving = _currentEnergy;
         _currentEnergy = 0;
+        QuestCompleted?.Invoke();
         return receiving;
     }
 
@@ -45,4 +46,6 @@ public class EnergyGenerator : MonoBehaviour, IInteraction
     {
         throw new NotImplementedException();
     }
+
+    public event Action QuestCompleted;
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class GrowingWeaponHandler : MonoBehaviour, IInteraction
+public class GrowingWeaponHandler : MonoBehaviour, IInteraction, IQuestItem
 {
     //[SerializeField] private float _growIterationTime;
     [SerializeField] private GrowingWeaponFactory _growingWeaponFactory;
@@ -84,8 +84,11 @@ public class GrowingWeaponHandler : MonoBehaviour, IInteraction
         toGiveAway.transform.parent = null;
         _currentState = GardenBedState.ReadyToPlant;
         _description = "Plant weapon" + "\n" + _energyCost + " energy and 1 seed";
+        QuestCompleted?.Invoke();
         return toGiveAway;
     }
+
+    public event Action QuestCompleted;
 }
 
 public enum GardenBedState

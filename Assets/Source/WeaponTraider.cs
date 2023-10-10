@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponTraider : MonoBehaviour, IInteraction
+public class WeaponTraider : MonoBehaviour, IInteraction, IQuestItem
 {
     public string InteractionDescription => "Trade your weapon";
 
@@ -14,6 +15,8 @@ public class WeaponTraider : MonoBehaviour, IInteraction
             return;
         }
 
+        QuestCompleted?.Invoke();
+        
         switch (weapon)
         {
             case SeedType.Gunana:
@@ -30,4 +33,6 @@ public class WeaponTraider : MonoBehaviour, IInteraction
         }
         
     }
+
+    public event Action QuestCompleted;
 }

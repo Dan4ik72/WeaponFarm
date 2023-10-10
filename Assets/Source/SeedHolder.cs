@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEditor.Build;
 using UnityEngine;
 
-public class SeedHolder : MonoBehaviour, IInteraction
+public class SeedHolder : MonoBehaviour, IInteraction, IQuestItem
 {
     [SerializeField] private SeedType _seedType;
 
@@ -43,7 +43,7 @@ public class SeedHolder : MonoBehaviour, IInteraction
         
         inventory.Collect(_seedType);
         _isFilled = true;
-        
+        QuestCompleted?.Invoke();
         Cooldown();
     }
 
@@ -59,4 +59,6 @@ public class SeedHolder : MonoBehaviour, IInteraction
         
         _isAvailable = true;
     }
+
+    public event Action QuestCompleted;
 }

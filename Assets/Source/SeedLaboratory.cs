@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeedLaboratory : MonoBehaviour,IInteractionWithRequirements
+public class SeedLaboratory : MonoBehaviour,IInteractionWithRequirements, IQuestItem
 {
     [SerializeField] private List<Transform> _potsSpawnPoints;
     [SerializeField] private List<SeedHolder> _seedHolders;
@@ -31,6 +32,8 @@ public class SeedLaboratory : MonoBehaviour,IInteractionWithRequirements
         Instantiate(_seedHolders[_index], _potsSpawnPoints[_index].position, _seedHolders[_index].transform.rotation, _potsSpawnPoints[_index]);
 
         InteractionDescription = "Open new seed";
+
+        QuestCompleted?.Invoke();
         
         _index++;
     }
@@ -45,6 +48,8 @@ public class SeedLaboratory : MonoBehaviour,IInteractionWithRequirements
         
         return (_requirements[_index].ResourceType, _requirements[_index].Count);
     }
+
+    public event Action QuestCompleted;
 }
 
 [System.Serializable]
