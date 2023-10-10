@@ -38,7 +38,7 @@ public class InteractionViewHandler : MonoBehaviour
         if(interaction != _current)
             return;
 
-        //_interactionObject.SetActive(false);
+        _interactionObject.SetActive(false);
     }
 }
 

@@ -41,6 +41,7 @@ public class Inventory : MonoBehaviour
         _resources.Add(ResourceType.Copper, 4);
         _resources.Add(ResourceType.Silver, 4);
         _resources.Add(ResourceType.Gold, 4);
+        _resources.Add(ResourceType.Wood, 4);
         _currentSeed = SeedType.Sword;
         _inventoryView.ShowText("You got basic resources");
     }
