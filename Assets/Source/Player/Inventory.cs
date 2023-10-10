@@ -12,6 +12,8 @@ public class Inventory : MonoBehaviour
     
     private Dictionary<ResourceType, int> _resources = new();
 
+    public InventoryView InventoryView => _inventoryView;
+    
     private void Awake()
     {
         Init();
