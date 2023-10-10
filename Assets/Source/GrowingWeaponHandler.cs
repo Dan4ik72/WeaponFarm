@@ -20,10 +20,15 @@ public class GrowingWeaponHandler : MonoBehaviour, IInteraction
     
     public bool IsGrowing { get; private set; }
 
-    public string InteractionDescription => _description + "\n" + _energyCost + " energy";
+    public string InteractionDescription => _description;
 
     public event Action Grown;
 
+    private void Awake()
+    {
+        _description = "Plant weapon" + "\n" + _energyCost + " energy and 1 seed";
+    }
+    
     [ContextMenu("GrowTest Sword")]
     public void GrowTest()
     {
@@ -78,7 +83,7 @@ public class GrowingWeaponHandler : MonoBehaviour, IInteraction
         _weaponPlant = null;
         toGiveAway.transform.parent = null;
         _currentState = GardenBedState.ReadyToPlant;
-        _description = "Plant weapon";
+        _description = "Plant weapon" + "\n" + _energyCost + " energy and 1 seed";
         return toGiveAway;
     }
 }
