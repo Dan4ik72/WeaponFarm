@@ -14,6 +14,20 @@ public class WeaponTraider : MonoBehaviour, IInteraction
             return;
         }
 
-        inventory.Collect(SeedType.Gunana);
+        switch (weapon)
+        {
+            case SeedType.Gunana:
+            inventory.CollectResourceByType(ResourceType.Wood, 2);
+                return;
+            
+            case SeedType.Melomb:
+                inventory.CollectResourceByType(ResourceType.Iron, 4);
+                return;
+            
+            case SeedType.Pomegrenade:
+                inventory.CollectResourceByType(ResourceType.Wood, 10);
+                return;
+        }
+        
     }
 }

@@ -60,6 +60,13 @@ public class Inventory : MonoBehaviour
         Destroy(resource.gameObject);
     }
 
+    public void CollectResourceByType(ResourceType type, int count)
+    {
+        _resources[type] += count;
+
+        _inventoryView.ShowText("You got " + count + " " + type);
+    }
+
     public bool TryGiveWeapon(out SeedType weapon)
     {
         weapon = _weapon;
