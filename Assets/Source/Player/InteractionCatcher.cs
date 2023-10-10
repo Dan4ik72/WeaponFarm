@@ -80,6 +80,12 @@ public class InteractionCatcher : MonoBehaviour
                 InteractionEntered?.Invoke(seedHolder);
                 _currentInteraction = seedHolder;
             }
+
+            if (_hit.collider.TryGetComponent(out SeedLaboratory laboratory))
+            {
+                InteractionWithRequirementsEntered?.Invoke(laboratory);
+                _currentInteraction = laboratory;
+            }
             
             if (Input.GetMouseButtonDown(0) && _currentInteraction != null)
             {
@@ -123,6 +129,12 @@ public class InteractionCatcher : MonoBehaviour
 
                 if (_currentInteraction is SeedHolder sh)
                 {
+                    if(sh.IsFilled == false)
+                        return;
+                    
+                    if(sh.IsAvailable == false)
+                        return;
+                    
                     if (_playerEnergy.TrySpendEnergy(sh.EnergyRequired) == false)
                         return;
                     

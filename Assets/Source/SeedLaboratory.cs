@@ -9,21 +9,40 @@ public class SeedLaboratory : MonoBehaviour,IInteractionWithRequirements
     [SerializeField] private List<SeedLaboratoryRequirements> _requirements;
 
     private int _index = 0;
-    
-    public string InteractionDescription { get; }
+
+    public string InteractionDescription { get; private set; }
+
+    private void Awake()
+    {
+        InteractionDescription = "Open new seed";
+    }
     
     public void Interact(Inventory inventory)
     {
-        if(inventory.TryGive(_requirements[_index].ResourceType, _requirements[_index].Count) == false)
+        if(_index == _requirements.Count)
             return;
+
+        if (inventory.TryGive(_requirements[_index].ResourceType, _requirements[_index].Count) == false)
+        {
+            InteractionDescription = "You dont have enough resources";
+            return;
+        }
 
         Instantiate(_seedHolders[_index], _potsSpawnPoints[_index]);
 
+        InteractionDescription = "Open new seed";
+        
         _index++;
     }
 
     public (ResourceType, int) GetRequirements()
     {
+        if (_index == _requirements.Count)
+        {
+            InteractionDescription = "";
+            return default;
+        }
+        
         return (_requirements[_index].ResourceType, _requirements[_index].Count);
     }
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 public class InteractionViewHandler : MonoBehaviour
 {
     [SerializeField] private TMP_Text _interactionText;
-    [SerializeField] private GameObject _interactionObject;
     
     [SerializeField] private InteractionCatcher _interactionCatcher;
 
@@ -23,14 +22,14 @@ public class InteractionViewHandler : MonoBehaviour
     {
         _current = interaction;
         _interactionText.text = interaction.InteractionDescription;
-        _interactionObject.SetActive(true);
     }
 
     private void ShowInteractionWithRequirements(IInteractionWithRequirements interaction)
     {
         _current = interaction;
-        _interactionText.text = interaction.InteractionDescription;
-        _interactionObject.SetActive(true);
+        var requirements = interaction.GetRequirements();
+        _interactionText.text = interaction.InteractionDescription + "\n" + requirements.Item1 + " " + requirements.Item2;
+        _interactionText.gameObject.SetActive(true);
     }
 
     private void OnInteractionEnded(IInteraction interaction)
