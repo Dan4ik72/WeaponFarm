@@ -111,6 +111,8 @@ public class InteractionCatcher : MonoBehaviour
                     switch (bed.CurrentState)
                     {
                         case GardenBedState.ReadyToPlant:
+                            if(_inventory.CurrentSeed == SeedType.Null)
+                                return;
                             if (_playerEnergy.TrySpendEnergy(bed.EnergyCost) == false)
                                 return;
                             bed.Interact(_inventory);

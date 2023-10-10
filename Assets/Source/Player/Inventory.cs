@@ -9,6 +9,8 @@ public class Inventory : MonoBehaviour
     
     private SeedType _currentSeed;
     private SeedType _weapon;
+
+    public SeedType CurrentSeed => _currentSeed;
     
     private Dictionary<ResourceType, int> _resources = new();
 
