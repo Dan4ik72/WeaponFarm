@@ -35,6 +35,7 @@ public class Inventory : MonoBehaviour
     {
         _weapon = weapon;
         _inventoryView.ShowText("You got " + weapon + " weapon");
+        _inventoryView.SetActiveWeaponText(true);
     }
 
     private void Init()
