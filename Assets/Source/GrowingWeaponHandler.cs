@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GrowingWeaponHandler : MonoBehaviour, IInteraction
 {
-    [SerializeField] private float _growIterationTime;
+    //[SerializeField] private float _growIterationTime;
     [SerializeField] private GrowingWeaponFactory _growingWeaponFactory;
     [SerializeField] private int _energyCost;
     private WeaponPlant _weaponPlant;
@@ -65,7 +65,7 @@ public class GrowingWeaponHandler : MonoBehaviour, IInteraction
 
         for (int i = 0; i < _weaponPlant.IterationsCount; i++)
         {
-            await Task.Delay(TimeSpan.FromSeconds(_growIterationTime));
+            await Task.Delay(TimeSpan.FromSeconds(_weaponPlant.GrowIterationTime));
 
             _weaponPlant.IteratePlant();
         }

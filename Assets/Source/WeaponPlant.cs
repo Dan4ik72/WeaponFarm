@@ -6,9 +6,11 @@ public class WeaponPlant : MonoBehaviour
 {
     [SerializeField] private SeedType _seedType;
     [SerializeField][Range(0, 100)] private float[] _iterations;
+    [SerializeField] private float _growIterationTime;
 
     private int _currentIteration;
     public int IterationsCount => _iterations.Length;
+    public float GrowIterationTime => _growIterationTime;
 
     public SeedType SeedType => _seedType;
 

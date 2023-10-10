@@ -73,6 +73,7 @@ MonoBehaviour:
   - 30
   - 65
   - 100
+  _growIterationTime: 6
 --- !u!1001 &8852965978550818406
 PrefabInstance:
   m_ObjectHideFlags: 0
