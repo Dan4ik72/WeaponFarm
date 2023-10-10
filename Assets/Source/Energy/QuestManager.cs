@@ -42,7 +42,8 @@ public class QuestManager : MonoBehaviour
         
         if (_questsSequence.Count - 1 < _currentQuestIndex)
             return;
-        
+
+        Debug.Log($"_currentQuest.QuestDescription {_currentQuest.QuestDescription}");
         _text.gameObject.SetActive(true);
         var newQuest = _questsSequence[_currentQuestIndex];
         newQuest.Enable();
