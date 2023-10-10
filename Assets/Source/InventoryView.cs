@@ -36,13 +36,17 @@ public class InventoryView : MonoBehaviour
 
     public void SetActiveSeedText(bool isActive, string text = "")
     {
-        _seedText.gameObject.SetActive(isActive);
-        _seedText.text = text;
+        if(isActive)
+            _seedText.text = "1";
+        else
+            _seedText.text = "0";
     }
 
     public void SetActiveWeaponText(bool isActive, string text = "")
     {
-        _weaponText.gameObject.SetActive(isActive);
-        _seedText.text = text;
+        if(isActive)
+            _weaponText.text = "1";
+        else
+            _weaponText.text = "0";
     }
 }

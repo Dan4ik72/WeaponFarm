@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         Init();
+        _inventoryView.SetActiveSeedText(false);
+        _inventoryView.SetActiveWeaponText(false);
     }
 
     private void Update()
