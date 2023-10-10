@@ -16,6 +16,7 @@ public class Resource : MonoBehaviour, ICollectable
 
 public enum ResourceType
 {
+    Wood,
     Iron,
     Copper,
     Silver,

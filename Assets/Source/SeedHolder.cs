@@ -53,11 +53,7 @@ public class SeedHolder : MonoBehaviour, IInteraction
         
         _description = "Wait";
             
-        Debug.Log("wait");
-        
         await Task.Delay(TimeSpan.FromSeconds(_cooldown));
-
-        Debug.Log("vse");
         
         _description = $"Get {_seedType}. {_energyRequired} required";
         

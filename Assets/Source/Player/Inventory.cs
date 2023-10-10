@@ -16,17 +16,23 @@ public class Inventory : MonoBehaviour
     {
         Init();
     }
+
+    private void Update()
+    {
+        _inventoryView.UpdateInventory(_resources[ResourceType.Iron], _resources[ResourceType.Wood]);
+    }
     
     public void Collect(SeedType seed)
     {
         _currentSeed = seed;
-        _inventoryView.ShowText("You got " + seed);
+        _inventoryView.ShowText("You got " + seed + " seed");
+        _inventoryView.SetActiveSeedText(true ,"1 " + seed + " seed");
     }
 
     public void CollectWeapon(SeedType weapon)
     {
         _weapon = weapon;
-        _inventoryView.ShowText("You got " + weapon);
+        _inventoryView.ShowText("You got " + weapon + " weapon");
     }
 
     private void Init()
@@ -55,7 +61,8 @@ public class Inventory : MonoBehaviour
         if (weapon == SeedType.Null)
             return false;
 
-        _inventoryView.ShowText(weapon + " sold");        
+        _inventoryView.ShowText(weapon + " weapon sold");
+        _inventoryView.SetActiveWeaponText(false);
         _weapon = SeedType.Null;
         return true;
     }
@@ -68,6 +75,7 @@ public class Inventory : MonoBehaviour
             return false;
 
         _inventoryView.ShowText(seed + " seed spent");
+        _inventoryView.SetActiveSeedText(false);
         
         _currentSeed = SeedType.Null;
         return true;
