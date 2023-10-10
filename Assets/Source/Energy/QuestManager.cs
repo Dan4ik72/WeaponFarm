@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,8 +9,6 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
     [SerializeField] private List<Quest> _questsSequence;
-    [Space]
-    [SerializeField] private Quest _first;
 
     [SerializeField] private TMP_Text _text;
     
@@ -27,7 +26,7 @@ public class QuestManager : MonoBehaviour
     private void Init()
     {
         _currentQuestIndex = 0;
-        _currentQuest = _first;
+        _currentQuest = _questsSequence.First();
         _currentQuest.Enable();
         _text.text = _currentQuest.QuestDescription;
         _currentQuest.QuestEnded += ChangeQuest;
@@ -35,6 +34,8 @@ public class QuestManager : MonoBehaviour
 
     private void ChangeQuest()
     {
+        Debug.Log("Change");
+        
         _currentQuestIndex++;
         _currentQuest.QuestEnded -= ChangeQuest;
         _currentQuest.OnQuestEnded();
@@ -43,13 +44,13 @@ public class QuestManager : MonoBehaviour
         if (_questsSequence.Count - 1 < _currentQuestIndex)
             return;
 
-        Debug.Log($"_currentQuest.QuestDescription {_currentQuest.QuestDescription}");
         _text.gameObject.SetActive(true);
         var newQuest = _questsSequence[_currentQuestIndex];
         newQuest.Enable();
-        _text.text = _currentQuest.QuestDescription;
         newQuest.QuestEnded += ChangeQuest;
         _currentQuest = newQuest;
+        _text.text = _currentQuest.QuestDescription;
+        Debug.Log($"_currentQuest.QuestDescription {_currentQuest.QuestDescription}");
     }
 }
 
