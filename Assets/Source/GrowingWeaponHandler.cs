@@ -8,16 +8,19 @@ public class GrowingWeaponHandler : MonoBehaviour, IInteraction
 {
     [SerializeField] private float _growIterationTime;
     [SerializeField] private GrowingWeaponFactory _growingWeaponFactory;
+    [SerializeField] private int _energyCost;
     private WeaponPlant _weaponPlant;
     private string _description = "Plant weapon";
 
     private GardenBedState _currentState = GardenBedState.ReadyToPlant;
 
     public GardenBedState CurrentState => _currentState;
+
+    public int EnergyCost => _energyCost;
     
     public bool IsGrowing { get; private set; }
 
-    public string InteractionDescription => _description;
+    public string InteractionDescription => _description + "\n" + _energyCost + " energy";
 
     public event Action Grown;
 
