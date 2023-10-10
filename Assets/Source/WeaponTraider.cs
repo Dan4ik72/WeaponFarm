@@ -14,6 +14,6 @@ public class WeaponTraider : MonoBehaviour, IInteraction
             return;
         }
 
-        inventory.Collect(SeedType.Sword);
+        inventory.Collect(SeedType.Gunana);
     }
 }

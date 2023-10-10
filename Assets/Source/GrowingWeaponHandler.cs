@@ -32,7 +32,7 @@ public class GrowingWeaponHandler : MonoBehaviour, IInteraction
     [ContextMenu("GrowTest Sword")]
     public void GrowTest()
     {
-        Plant(SeedType.Sword);
+        Plant(SeedType.Gunana);
     }
 
     public void Interact(Inventory inventory)
@@ -98,7 +98,9 @@ public enum GardenBedState
 public enum SeedType
 {
     Null,
-    Sword
+    Gunana,
+    Melomb,
+    Pomegrenade
 }
 
 [System.Serializable]
