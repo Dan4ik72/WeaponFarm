@@ -34147,7 +34147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5578320928709768168, guid: 9d8b0c8112e78a94a8989f8bfbc85b2d, type: 3}
       propertyPath: _energyCost
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5578320928709768168, guid: 9d8b0c8112e78a94a8989f8bfbc85b2d, type: 3}
       propertyPath: _growingWeaponFactory._weaponPlantsPrefabs.Array.size
