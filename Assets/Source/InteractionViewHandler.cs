@@ -22,6 +22,7 @@ public class InteractionViewHandler : MonoBehaviour
     {
         _current = interaction;
         _interactionText.text = interaction.InteractionDescription;
+        _interactionObject.SetActive(true);
     }
 
     private void ShowInteractionWithRequirements(IInteractionWithRequirements interaction)
@@ -29,7 +30,7 @@ public class InteractionViewHandler : MonoBehaviour
         _current = interaction;
         var requirements = interaction.GetRequirements();
         _interactionText.text = interaction.InteractionDescription + "\n" + requirements.Item1 + " " + requirements.Item2;
-        _interactionText.gameObject.SetActive(true);
+        _interactionObject.SetActive(true);
     }
 
     private void OnInteractionEnded(IInteraction interaction)
