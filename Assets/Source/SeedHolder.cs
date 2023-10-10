@@ -30,7 +30,7 @@ public class SeedHolder : MonoBehaviour, IInteraction, IQuestItem
 
     private void Awake()
     {
-        _description = $"Get {_seedType}. {_energyRequired} required";
+        _description = $"Get {_seedType} seed.\n{_energyRequired} energy required";
     }
     
     public void Interact(Inventory inventory)
@@ -51,11 +51,11 @@ public class SeedHolder : MonoBehaviour, IInteraction, IQuestItem
     {
         _isAvailable = false;
         
-        _description = "Wait " + _cooldown + " sec";
+        _description = "Wait " + _cooldown + " sec for new seed";
             
         await Task.Delay(TimeSpan.FromSeconds(_cooldown));
         
-        _description = $"Get {_seedType}. {_energyRequired} required";
+        _description = $"Get {_seedType} seed.\n{_energyRequired} energy required";
         
         _isAvailable = true;
     }

@@ -29,8 +29,11 @@ public class Movement : MonoBehaviour
         //_horizontalSpeed = Input.GetAxisRaw("Horizontal") * _speed;
         //_verticalSpeed = Input.GetAxisRaw("Vertical") * _speed;
         MobileInput();
-        DesktopMove();
-        DesktopRotation();
+        if (_joystick.IsPressed == false)
+        {
+            DesktopMove();
+            DesktopRotation();
+        }
         _rigidbody.velocity = Vector3.zero;
     }
 

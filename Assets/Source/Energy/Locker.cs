@@ -12,7 +12,7 @@ public class Locker : MonoBehaviour, IQuestItem, IInteractionWithRequirements
 
     [SerializeField] private Collider _lockedObject;
 
-    public string InteractionDescription { get; } = "Unlock the object?";
+    public string InteractionDescription { get; } = "Unlock Energy Generator";
     public void Interact(Inventory inventory)
     {
         TryUnlock(inventory);
