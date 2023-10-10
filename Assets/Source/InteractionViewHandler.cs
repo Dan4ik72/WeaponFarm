@@ -6,7 +6,7 @@ using UnityEngine;
 public class InteractionViewHandler : MonoBehaviour
 {
     [SerializeField] private TMP_Text _interactionText;
-    
+    [SerializeField] private GameObject _interactionObject;
     [SerializeField] private InteractionCatcher _interactionCatcher;
 
     private IInteraction _current;
